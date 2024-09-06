@@ -74,7 +74,7 @@ router.get('/protected', authenticateJWT, (req, res) => {
 });
 
 router.get('/:id', authenticateJWT, authController.getById.bind(authController));
-
 router.post('/request-password-reset', authController.requestPasswordReset.bind(authController));
-router.post('/reset-password', authController.resetPassword.bind(authController));
+router.post('/confirm-reset-password', authController.resetPassword.bind(authController));
+
 export default router;

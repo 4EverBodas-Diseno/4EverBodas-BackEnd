@@ -24,33 +24,37 @@ export class AuthService {
         user.resetPasswordExpires = new Date(Date.now() + 3600000); // 1 hour
         await user.save();
 
-        const transporter = nodemailer.createTransport({
-            service: 'Gmail',
-            auth: {
-                user: process.env.EMAIL_USER,
-                pass: process.env.EMAIL_PASS,
-            },
-        });
+        console.log("token to restore password", token);
 
-        const mailOptions = {
-            to: user.email,
-            from: process.env.EMAIL_USER,
-            subject: 'Password Reset',
-            text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
-                   Please click on the following link, or paste this into your browser to complete the process:\n\n
-                   http://${process.env.FRONTEND_URL}/reset/${token}\n\n
-                   If you did not request this, please ignore this email and your password will remain unchanged.\n`,
-        };
+        // temporary disable email sending
 
-        await transporter.sendMail(mailOptions);
+        //const transporter = nodemailer.createTransport({
+        //    service: 'Gmail',
+        //    auth: {
+        //        user: process.env.EMAIL_USER,
+        //        pass: process.env.EMAIL_PASS,
+        //    },
+        //});
+
+        //const mailOptions = {
+        //    to: user.email,
+        //    from: process.env.EMAIL_USER,
+        //    subject: 'Password Reset',
+        //    text: `You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n
+        //           Please click on the following link, or paste this into your browser to complete the process:\n\n
+        //           http://${process.env.FRONTEND_URL}/reset/${token}\n\n
+        //           If you did not request this, please ignore this email and your password will remain unchanged.\n`,
+        //};
+        //await transporter.sendMail(mailOptions);
     }
 
     async resetPassword(token: string, newPassword: string): Promise<void> {
         const user = await this.userRepository.findByResetPasswordToken(token);
+        console.log("user reset pass", user);
         if (!user || (user.resetPasswordExpires && user.resetPasswordExpires.getTime() < Date.now())) {
             throw new Error('Password reset token is invalid or has expired');
         }
-
+        console.log("new password", newPassword);
         user.password = await bcrypt.hash(newPassword, 12);
         user.resetPasswordToken = undefined;
         user.resetPasswordExpires = undefined;
