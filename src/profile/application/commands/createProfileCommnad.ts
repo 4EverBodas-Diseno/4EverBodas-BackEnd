@@ -7,7 +7,7 @@ export class CreateProfileCommand {
         this.profileService = new ProfileService();
     }
 
-    async execute(firstName: string, lastName: string, email: string) {
-        return this.profileService.createProfile(firstName, lastName, email);
+    async execute(userId: string, email: string, firstName: string, lastName: string) {
+        return this.profileService.createProfile(userId, firstName, lastName, email);
     }
 }

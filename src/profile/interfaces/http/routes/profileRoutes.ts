@@ -11,7 +11,6 @@ const router = Router();
  *     summary: Add a profile information
  *     tags: [Profile]
  *     requestBody:
- *       required: true
  *       content:
  *         application/json:
  *           schema:

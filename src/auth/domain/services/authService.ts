@@ -19,8 +19,7 @@ export class AuthService {
     async login(username: string, password: string): Promise<string | null> {
         const user = await this.userRepository.findByUsername(username);
         if (user && await bcrypt.compare(password, user.password)) {
-            // use the process.env.JWT_SECRET as the secret key
-            return jwt.sign({ username: user.username }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
+            return jwt.sign({ username: user._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
         }
         return null;
     }

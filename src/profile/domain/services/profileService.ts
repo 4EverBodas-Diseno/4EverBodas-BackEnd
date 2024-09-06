@@ -8,8 +8,8 @@ export class ProfileService {
         this.profileRepository = new ProfileRepository();
     }
 
-    async createProfile(firstName: string, lastName: string, email: string) {
-        const profile = new Profile({ firstName, lastName, email });
+    async createProfile(userId: string, firstName: string, lastName: string, email: string) {
+        const profile = new Profile({ userId, firstName, lastName, email });
         return this.profileRepository.create(profile);
     }
 }
