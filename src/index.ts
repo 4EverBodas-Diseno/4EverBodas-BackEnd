@@ -1,6 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './auth/interfaces/http/routes/authRoutes';
+import eventManagmentRoutes from './EventManagment/interfaces/http/routes/eventManagmentRoutes';
 import { setupSwagger } from './swagger';
 
 const app = express();
@@ -24,6 +25,8 @@ mongoose.connect(mongoUrl + mongoName).then(() => {
 
 // Routes
 app.use('/auth', authRoutes);
+app.use('/event', eventManagmentRoutes);
+
 
 // Setup Swagger
 setupSwagger(app);
