@@ -1,5 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
+import authRoutes from './auth/interfaces/http/routes/authRoutes';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -21,6 +22,8 @@ mongoose.connect(mongoUrl + mongoName).then(() => {
 });
 
 // Rutas
+app.use('/auth', authRoutes);
+
 app.get('/', (req, res) => {
     res.send('¡Hola, mundo!');
 });
