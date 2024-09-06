@@ -17,9 +17,9 @@ export async function register(req: Request, res: Response) {
 };
 
 export const login = async (req: Request, res: Response) => {
-    const { email, password } = req.body;
+    const { username, password } = req.body;
     try {
-        const token = await loginUserCommand.execute(email, password);
+        const token = await loginUserCommand.execute(username, password);
         if (token) {
             res.status(200).json({ token });
         } else {

@@ -7,7 +7,7 @@ export class LoginUserCommand {
         this.authService = new AuthService();
     }
 
-    async execute(email: string, password: string) {
-        return this.authService.login(email, password);
+    async execute(username: string, password: string) {
+        return this.authService.login(username, password);
     }
 }
