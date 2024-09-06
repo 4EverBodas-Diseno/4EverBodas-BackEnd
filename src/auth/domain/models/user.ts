@@ -6,6 +6,8 @@ export interface IUser extends Document {
     email: string;
     firstName: string;
     lastName: string;
+    resetPasswordToken?: string;
+    resetPasswordExpires?: Date;
 }
 
 const userSchema = new Schema<IUser>({
@@ -14,6 +16,8 @@ const userSchema = new Schema<IUser>({
     email: { type: String, required: true, unique: true },
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
+    resetPasswordToken: { type: String },
+    resetPasswordExpires: { type: Date },
 });
 
 export const User = model<IUser>('User', userSchema);

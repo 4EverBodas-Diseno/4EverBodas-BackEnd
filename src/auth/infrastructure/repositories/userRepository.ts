@@ -10,4 +10,12 @@ export class UserRepository {
     async findById(id: string): Promise<IUser | null> {
         return User.findById(id);
     }
+
+    async findByEmail(email: string): Promise<IUser | null> {
+        return User.findOne({ email });
+    }
+
+    async findByResetPasswordToken(token: string): Promise<IUser | null> {
+        return User.findOne({ resetPasswordToken: token });
+    }
 }

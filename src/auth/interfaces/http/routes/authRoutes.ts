@@ -1,8 +1,9 @@
 import { Router } from 'express';
-import { register, login, getById } from '../controllers/authController';
+import AuthController from '../controllers/authController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 
 const router = Router();
+const authController = new AuthController();
 
 /**
  * @swagger
@@ -27,7 +28,7 @@ const router = Router();
  *       400:
  *         description: Error en la solicitud
  */
-router.post('/signup', register);
+router.post('/signup', authController.register.bind(authController));
 
 /**
  * @swagger
@@ -52,7 +53,7 @@ router.post('/signup', register);
  *       401:
  *         description: Credenciales inválidas
  */
-router.post('/signin', login);
+router.post('/signin', authController.login.bind(authController));
 
 /**
  * @swagger
@@ -72,7 +73,8 @@ router.get('/protected', authenticateJWT, (req, res) => {
     res.send('Esta es una ruta protegida.');
 });
 
+router.get('/:id', authenticateJWT, authController.getById.bind(authController));
 
-router.get("/:id", authenticateJWT, getById);
-
+router.post('/request-password-reset', authController.requestPasswordReset.bind(authController));
+router.post('/reset-password', authController.resetPassword.bind(authController));
 export default router;
