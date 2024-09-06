@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import authRoutes from './auth/interfaces/http/routes/authRoutes';
 import profileRoutes from './profile/interfaces/http/routes/profileRoutes';
+import { setupSwagger } from './swagger';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -25,6 +26,9 @@ mongoose.connect(mongoUrl + mongoName).then(() => {
 // Routes
 app.use('/auth', authRoutes);
 app.use('/profile', profileRoutes);
+
+// Setup Swagger
+setupSwagger(app);
 
 app.get('/', (req, res) => {
     res.send('¡Hola, mundo!');
