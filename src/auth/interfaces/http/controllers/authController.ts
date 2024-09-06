@@ -1,11 +1,12 @@
-import { Request, Response } from 'express';
+import e, { Request, Response } from 'express';
 import { RegisterUserCommand } from '../../../application/commands/registerUserCommand';
 import { LoginUserCommand } from '../../../application/commands/loginUserCommand';
 
 const registerUserCommand = new RegisterUserCommand();
 const loginUserCommand = new LoginUserCommand();
 
-export const register = async (req: Request, res: Response) => {
+
+export async function register(req: Request, res: Response) {
     const { username, email, password } = req.body;
     try {
         const user = await registerUserCommand.execute(username, email, password);
