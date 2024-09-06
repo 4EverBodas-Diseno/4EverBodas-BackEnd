@@ -7,7 +7,7 @@ export class RegisterUserCommand {
         this.authService = new AuthService();
     }
 
-    async execute(username: string, email: string, password: string) {
-        return this.authService.register(username, email, password);
+    async execute(username: string, password: string) {
+        return this.authService.register(username, password);
     }
 }

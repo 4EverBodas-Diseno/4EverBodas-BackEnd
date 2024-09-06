@@ -10,9 +10,9 @@ export class AuthService {
         this.userRepository = new UserRepository();
     }
 
-    async register(username: string, email: string, password: string): Promise<IUser> {
+    async register(username: string, password: string): Promise<IUser> {
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ username, email, password: hashedPassword });
+        const user = new User({ username, password: hashedPassword });
         return this.userRepository.create(user);
     }
 

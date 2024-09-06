@@ -7,9 +7,9 @@ const loginUserCommand = new LoginUserCommand();
 
 
 export async function register(req: Request, res: Response) {
-    const { username, email, password } = req.body;
+    const { username, password } = req.body;
     try {
-        const user = await registerUserCommand.execute(username, email, password);
+        const user = await registerUserCommand.execute(username, password);
         res.status(201).json(user);
     } catch (error) {
         res.status(400).json({ error: error });
