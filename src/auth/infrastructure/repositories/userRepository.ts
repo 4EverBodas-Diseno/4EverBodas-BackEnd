@@ -1,11 +1,10 @@
-import { User, IUser } from '../../domain/models/user';
+import { User, IUser } from '../../domain/models/User';
 
 export class UserRepository {
-    async findByEmail(email: string): Promise<IUser | null> {
-        return User.findOne({ email });
-    }
-
     async create(user: IUser): Promise<IUser> {
         return User.create(user);
+    }
+    async findByUsername(username: string): Promise<IUser | null> {
+        return User.findOne({ username });
     }
 }

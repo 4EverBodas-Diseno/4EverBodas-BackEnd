@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import { UserRepository } from '../../infrastructure/repositories/userRepository';
-import { IUser, User } from '../models/user';
+import { IUser, User } from '../models/User';
 
 export class AuthService {
     private userRepository: UserRepository;
@@ -16,8 +16,8 @@ export class AuthService {
         return this.userRepository.create(user);
     }
 
-    async login(email: string, password: string): Promise<string | null> {
-        const user = await this.userRepository.findByEmail(email);
+    async login(username: string, password: string): Promise<string | null> {
+        const user = await this.userRepository.findByUsername(username);
         if (user && await bcrypt.compare(password, user.password)) {
             return jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
         }
