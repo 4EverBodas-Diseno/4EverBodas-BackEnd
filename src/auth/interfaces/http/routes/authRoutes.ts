@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { register, login } from '../controllers/authController';
+import { register, login, getById } from '../controllers/authController';
 import { authenticateJWT } from '../middleware/authMiddleware';
 
 const router = Router();
@@ -71,5 +71,8 @@ router.post('/signin', login);
 router.get('/protected', authenticateJWT, (req, res) => {
     res.send('Esta es una ruta protegida.');
 });
+
+
+router.get("/:id", authenticateJWT, getById);
 
 export default router;

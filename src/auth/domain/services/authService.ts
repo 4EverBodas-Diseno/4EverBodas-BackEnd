@@ -10,9 +10,9 @@ export class AuthService {
         this.userRepository = new UserRepository();
     }
 
-    async register(username: string, password: string): Promise<IUser> {
+    async register(username: string, password: string, email: string, firstName: string, lastName: string): Promise<IUser> {
         const hashedPassword = await bcrypt.hash(password, 12);
-        const user = new User({ username, password: hashedPassword });
+        const user = new User({ username, password: hashedPassword, email, firstName, lastName });
         return this.userRepository.create(user);
     }
 
@@ -22,5 +22,9 @@ export class AuthService {
             return jwt.sign({ username: user._id }, process.env.JWT_SECRET as string, { expiresIn: '7d' });
         }
         return null;
+    }
+
+    async getById(id: string): Promise<IUser | null> {
+        return this.userRepository.findById(id);
     }
 }
