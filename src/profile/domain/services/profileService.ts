@@ -2,6 +2,7 @@ import { ProfileRepository } from "../../infrastructure/repositories/profileRepo
 import { Profile } from "../models/Profile";
 
 export class ProfileService {
+
     private profileRepository: ProfileRepository;
 
     constructor() {
@@ -11,5 +12,9 @@ export class ProfileService {
     async createProfile(userId: string, firstName: string, lastName: string, email: string) {
         const profile = new Profile({ userId, firstName, lastName, email });
         return this.profileRepository.create(profile);
+    }
+
+    async getProfileByUserId(userId: string) {
+        return this.profileRepository.findByUserId(userId);
     }
 }
