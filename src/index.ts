@@ -8,10 +8,7 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017/4everbodas', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-} as ConnectOptions).then(() => {
+mongoose.connect('mongodb://localhost:27017/4everbodas').then(() => {
     console.log('Conectado a MongoDB');
 }).catch(err => {
     console.error('Error al conectar a MongoDB', err);
