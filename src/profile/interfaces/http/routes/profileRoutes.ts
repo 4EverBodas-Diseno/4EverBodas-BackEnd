@@ -29,8 +29,6 @@ const router = Router();
  *       401:
  *         description: Unauthorized
  */
-router.post('/', authenticateJWT, addProfile, (req, res) => {
-    res.send(401).json({ message: 'Unauthorized' });
-});
+router.post('/', authenticateJWT, addProfile);
 
 export default router;
