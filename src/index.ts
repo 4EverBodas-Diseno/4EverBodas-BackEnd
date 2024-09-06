@@ -1,5 +1,5 @@
 import express from 'express';
-import mongoose, { ConnectOptions } from 'mongoose';
+import mongoose from 'mongoose';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -8,7 +8,13 @@ const port = process.env.PORT || 3000;
 app.use(express.json());
 
 // Conexión a MongoDB
-mongoose.connect('mongodb://localhost:27017/4everbodas').then(() => {
+const mongoUrl = process.env.DB_MONGO_URL;
+const mongoName = process.env.DB_MONGO_NAME;
+if (!mongoUrl || !mongoName) {
+    console.error('DB_MONGO_URL or DB_MONGO_NAME is undefined');
+    process.exit(1);
+}
+mongoose.connect(mongoUrl + mongoName).then(() => {
     console.log('Conectado a MongoDB');
 }).catch(err => {
     console.error('Error al conectar a MongoDB', err);
